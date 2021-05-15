@@ -20,11 +20,17 @@ const typeDefs = gql`
 
   type Room {
     activeUsers: [User]
-    messages: [String]
+    messages: [Message]
+  }
+
+  type Message {
+    author: User
+    time: String
+    text: String
   }
 
   type Query {
-    users: User
+    users: [User]
     getUser(username: String!): User
     login(username: String!, password: String!): User
     stocks: Company
@@ -38,8 +44,8 @@ const typeDefs = gql`
   }
 `;
 
-const resolvers = {
-  Query: {
+const resolvers = { 
+  Query: { 
     users: async () => await userData.getAllUsers(),
     getUser: async (_, args) => await userData.getUser(args.username),
     stocks: async (_, args) => console.log('TODO'),
