@@ -26,8 +26,9 @@ const typeDefs = gql`
   type Query {
     users: User
     getUser(username: String!): User
+    login(username: String!, password: String!): User
     stocks: Company
-    login: String
+   
   }
 
   type Mutation {
@@ -42,7 +43,7 @@ const resolvers = {
     users: async () => await userData.getAllUsers(),
     getUser: async (_, args) => await userData.getUser(args.username),
     stocks: async (_, args) => console.log('TODO'),
-    login: async (_, args) => console.log('TODO')
+    login: async (_, args) => await userData.login(args.username, args.password),
   },
 
   Mutation: {
