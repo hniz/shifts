@@ -2,6 +2,7 @@
 const firebaseConnections = require("../config/firebaseConnections");
 const db = firebaseConnections.initializeCloudFirebase();
 
+
 const fetch = require("node-fetch");
 const { database } = require("firebase-admin");
 const { generate } = require("password-hash");
@@ -15,7 +16,6 @@ module.exports = {
       });
       return arr;
   },
-
   async getStock(symbol) {
          const userRef = db.collection('stocks').doc(symbol);
         const doc = await userRef.get();
@@ -26,7 +26,7 @@ module.exports = {
         }
         return null;
   },
-  
+
   async addStock(symbol) {
     //do alphavantage call here
     if (!symbol) throw "Stock symbol does not exist";
