@@ -2,6 +2,7 @@ const scraper = require('./app');
 const WebSocket = require('ws');
 const socket = new WebSocket('wss://ws.finnhub.io?token=c2feaaqad3ien4445gh0');
 const fetch = require('node-fetch');
+const sendStockData = require('../socket/');
 
 let prices = {};
 let topTickers = [];
@@ -78,7 +79,8 @@ const runScript = async () => {
 
                     prices[symbol] = [];
 
-                    console.log(filledAvgPrice); // replace with socket call
+                    // console.log(filledAvgPrice); // replace with socket call
+                    sendStockData(symbol, filledAvgPrice);
                 }
             }
         });
@@ -98,16 +100,5 @@ socket.addEventListener('open', async () => {
         });
 
         runScript();
-    }, 900000);
+    }, 900000); // change this to 24 hours
 });
-
-
-// on interval of 12 or 24 hours run:
-    // call hamzah's scraper
-    // call wipe
-    // subscribe though websocket
-    // take 'message' 
-        // push to an array to act as buffer for the database (eventually push to db after 30 min)
-        // emit 'messages' to individual rooms
-        // emit 'messages' to dashboard rooms
-    // call through graphql mutation - 86400000
