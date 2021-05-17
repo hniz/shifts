@@ -45,12 +45,12 @@ io.use(async (socket, next) => {
 
 io.on("connection", (socket) => {
     const userToken = socket.handshake.query.userToken;
-    try {
+    /*try {
         const { uid } = await admin.auth().verifyIdToken(userToken);
         socket.uid = uid;
     } catch (err) {
         return socket.disconnect(true);
-    }
+    }*/
     const symbol = socket.handshake.query.symbol;
     console.log('symbol', symbol);
     console.log('uid', socket.uid);
